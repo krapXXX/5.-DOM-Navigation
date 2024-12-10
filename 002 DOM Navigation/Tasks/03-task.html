@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +17,13 @@
             border: 1px solid black;
         }
 
-        td, th {
+        td,
+        th {
             padding: 8px;
         }
     </style>
 </head>
+
 <body>
     <table id="statsTable">
         <tr>
@@ -63,10 +66,16 @@
             <td>125</td>
             <td>100</td>
         </tr>
+
+
+        <tr>
+            <th>Итого</th>
+            <th id="resultFirst"></th>
+            <th id="resultSecond"></th>
+        </tr>
     </table>
 
     <div id="result"></div>
-
     <script>
         /*
         Задание:
@@ -75,6 +84,36 @@
         В div с id result выведите сообщение "Отдел 1 сделал больше продаж" или "Отдел 2 сделал больше продаж" на основе раннее вычисленных значений в строке "Итого".
         Используйте любые методы, которые были рассмотрены на в прошлых уроках.
         */
+        let resultFirst = document.querySelector("#resultFirst");
+        let resultSecond = document.querySelector("#resultSecond");
+        let table = document.querySelector("#statsTable");
+        let sumFirst = 0;
+        let sumSecond = 0;
+
+        for (let i = 1; i < table.rows.length - 1; i++) {
+            let row = table.rows[i];
+            let firstCell = row.cells[1];
+            let secondCell = row.cells[2];
+            sumFirst += Number(firstCell.textContent);
+            sumSecond += Number(secondCell.textContent);
+        }
+
+        resultFirst.textContent = sumFirst;
+        resultSecond.textContent = sumSecond;
+
+        let result = document.querySelector("#result");
+        if (sumFirst > sumSecond) {
+            result.textContent = "First department earned more";
+        }
+        else if (sumFirst < sumSecond) {
+            result.textContent = "Second department earned more";
+        }
+        else {
+            result.textContent = "Bothe department earned equally";
+        }
+
+
     </script>
 </body>
+
 </html>
