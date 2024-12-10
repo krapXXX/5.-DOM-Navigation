@@ -39,7 +39,6 @@
         Компании пользователей с наибольшим балансом - параграф с id greatestBalanceCompanyOutput
         Компании пользователей с наименьшим балансом - параграф с id lowestBalanceCompanyOutput
         */
-        // массив сгенерирован с помощью https://next.json-generator.com/
         let users = [
             {
                 balance: '1250.89',
@@ -478,23 +477,29 @@
         ];
 
         function showAllEmails() {
-            console.log("Электронные адреса пользователей:")
-            users.forEach(user => console.log(user.email));
+            let emailAddressesOutput = document.getElementById("emailAddressesOutput");
+            let emails = users.map(user => user.email).join("\n");
+            emailAddressesOutput.textContent = emails;
         }
 
-        function showHigestFriendCount() {
-            console.log("Пользователи с наибольшим количеством друзей");
 
-            let max = Number.MIN_VALUE;
-
+        function showHighestFriendCount() {
+            let users = document.querySelectorAll(".user");
+          let maxFriends = 0;
+            let usersWithMostFriends = [];
+            
             users.forEach(user => {
-                if (max < user.friends.length)
-                    max = user.friends.length;
+                let friendsCount = user.friends.length;
+                if (friendsCount > maxFriends) {
+                    maxFriends = friendsCount;
+                    usersWithMostFriends = [user];
+                } else if (friendsCount === maxFriends) {
+                    usersWithMostFriends.push(user);
+                }
             });
-
-            users
-                .filter(user => user.friends.length == max)
-                .forEach(user => console.log(user.name.first + " " + user.name.last));
+            
+            let friendsOutput = document.getElementById("greatesFriendsCountOutput");
+            friendsOutput.innerHTML = usersWithMostFriends.map(user => user.name.first + ' ' + user.name.last).join('<br>');
         }
 
         function showMinMaxBalance() {
@@ -522,7 +527,7 @@
         }
 
         showAllEmails();
-        showHigestFriendCount();
+        showHighestFriendCount();
         showMinMaxBalance();
     </script>
 </body>

@@ -16,7 +16,8 @@
             border: 1px solid black;
         }
 
-        td, th {
+        td,
+        th {
             padding: 8px;
         }
     </style>
@@ -52,10 +53,7 @@
             <td>Июль</td>
             <td>100</td>
         </tr>
-        <tr>
-            <th>Итого</th>
-            <th id="output"></th>
-        </tr>
+
     </table>
     <script>
         /*
@@ -64,6 +62,22 @@
         Если во второй ячейке значение больше 100, строка должна отображаться зеленым цветом, если значение менее 100 - красным цветом.
         Для смены цвета строки используйте код row.style.backgroundColor = "цвет"
         */
+        let table = document.querySelector('#statsTable');
+        for (let i = 0; i < table.rows.length; i++) {
+            let row = table.rows[i];
+            let cell = row.cells[1];
+            if (Number(cell.textContent) > 100) {
+                row.style.backgroundColor = "green";
+            }
+            else if (Number(cell.textContent) < 100) {
+                row.style.backgroundColor = "red";
+            }
+            else {
+                row.style.backgroundColor = "orange";
+
+            }
+        }
+
     </script>
 </body>
 
